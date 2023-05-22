@@ -1,0 +1,112 @@
+plugins {
+  id 'org.springframework.boot' version '2.1.1.RELEASE'
+  id 'org.asciidoctor.convert' version '1.5.3'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'project-report'
+apply plugin: 'build-dashboard'
+
+ext {
+  snippetsDir = file('build/generated-snippets')
+  
+  jacocoVersion = '0.8.2'
+  checkstyleVersion = '8.14'
+  pmdVersion = '6.9.0'
+}
+
+group = 'com.leanstacks'
+version = '2.3.0'
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+  
+  compile group: 'org.springframework', name: 'spring-context-support'
+  
+  compile group: 'com.github.ben-manes.caffeine', name: 'caffeine'
+  compile group: 'org.liquibase', name: 'liquibase-core'
+  
+  runtime group: 'org.hsqldb', name: 'hsqldb'
+  runtime group: 'mysql', name: 'mysql-connector-java'
+  
+  testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+  testCompile group: 'org.springframework.security', name: 'spring-security-test'
+  testCompile group: 'org.springframework.restdocs', name: 'spring-restdocs-mockmvc'
+  testCompile group: 'com.google.guava', name: 'guava', version: '27.0.1-jre'
+  
+  asciidoctor group: 'org.springframework.restdocs', name: 'spring-restdocs-asciidoctor'
+}
+
+defaultTasks 'clean', 'build'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.10.2'
+}
+
+task encodePassword(type: JavaExec) {
+  classpath = sourceSets.test.runtimeClasspath
+  main = 'com.leanstacks.ws.util.BCryptPasswordEncoderUtil'
+  if(project.hasProperty('mainargs')) {
+    args(mainargs.split(','))
+  }
+}
+
+bootJar {
+  launchScript()
+}
+
+springBoot {
+  buildInfo()
+}
+
+jacoco {
+  toolVersion = jacocoVersion
+}
+
+jacocoTestReport {
+  reports {
+    html.enabled = true
+    xml.enabled = true
+    csv.enabled = false
+  }
+}
+
+test {
+  outputs.dir snippetsDir
+  finalizedBy jacocoTestReport
+}
+
+asciidoctor {
+  inputs.dir snippetsDir
+  dependsOn test
+}
+
+checkstyle {
+  toolVersion = checkstyleVersion
+  config = rootProject.resources.text.fromFile('etc/checkstyle/rules.xml')
+}
+
+pmd {
+  toolVersion = pmdVersion
+  ruleSets = []
+  ruleSetFiles = files('etc/pmd/ruleset.xml')
+  ignoreFailures = true
+}
+
+check.finalizedBy projectReport
+
+projectReport.finalizedBy buildDashboard

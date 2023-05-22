@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="40" author="octa">
+        <!-- password is 'password' -->
+        <insert tableName="Shipment">
+            <column name="packageWeight" value="15" />
+            <column name="senderId" value="1" />
+            <column name="receiverId" value="2" />
+            <column name="routeId" value="1" />
+            <column name="returnStarted" valueBoolean="false" />
+            <column name="packageReturned" valueBoolean="false" />
+            <column name="currentCity" value="1" />
+            <column name="price" value="50" />
+            <column name="packageType" value="STANDARD" />
+            <column name="packageStatus" value="in tranzit" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

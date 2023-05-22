@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="9" author="octa">
+        <createTable tableName="City">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="cityName" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="hasOffice" type="boolean">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="10" author="octa">
+        <createTable tableName="Route">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="fromCityId" type="bigint(20)">
+                <constraints references="city(id)" foreignKeyName="FK_Route_CityFromId" deleteCascade="false" nullable="false" />
+            </column>
+            <column name="toCityId" type="bigint(20)">
+                <constraints references="city(id)" foreignKeyName="FK_Route_CityToId" deleteCascade="false" nullable="false" />
+            </column>
+            <column name="transportType" type="varchar(100)" defaultValue="">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="11" author="octa">
+        <!-- password is 'password' -->
+        <insert tableName="City">
+            <column name="cityName" value="Oradea" />
+            <column name="hasOffice" valueBoolean="true" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Arad" />
+            <column name="hasOffice" valueBoolean="true" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Timisoara" />
+            <column name="hasOffice" valueBoolean="true" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="12" author="octa">
+        <!-- password is 'password' -->
+        <insert tableName="Route">
+            <column name="fromCityId" value="1" />
+            <column name="toCityId" value="3" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="2" />
+            <column name="toCityId" value="3" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

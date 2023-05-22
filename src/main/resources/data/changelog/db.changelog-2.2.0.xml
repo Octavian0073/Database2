@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="19" author="octa">
+        <!-- password is 'password' -->
+        <insert tableName="City">
+            <column name="cityName" value="Oradea" />
+            <column name="hasOffice" valueBoolean="true" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Arad" />
+            <column name="hasOffice" valueBoolean="false" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Timisoara" />
+            <column name="hasOffice" valueBoolean="true" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Cluj" />
+            <column name="hasOffice" valueBoolean="false" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Deva" />
+            <column name="hasOffice" valueBoolean="false" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Sibiu" />
+            <column name="hasOffice" valueBoolean="false" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Brasov" />
+            <column name="hasOffice" valueBoolean="true" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Bucuresti" />
+            <column name="hasOffice" valueBoolean="true" />
+        </insert>
+        <insert tableName="City">
+            <column name="cityName" value="Targu Mures" />
+            <column name="hasOffice" valueBoolean="false" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="20" author="octa">
+        <!-- password is 'password' -->
+        <insert tableName="Route">
+            <column name="fromCityId" value="1" />
+            <column name="toCityId" value="3" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="3" />
+            <column name="toCityId" value="1" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="3" />
+            <column name="toCityId" value="7" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="7" />
+            <column name="toCityId" value="3" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="7" />
+            <column name="toCityId" value="8" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="8" />
+            <column name="toCityId" value="7" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="3" />
+            <column name="toCityId" value="8" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="8" />
+            <column name="toCityId" value="3" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="1" />
+            <column name="toCityId" value="7" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="7" />
+            <column name="toCityId" value="1" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="1" />
+            <column name="toCityId" value="8" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+        <insert tableName="Route">
+            <column name="fromCityId" value="8" />
+            <column name="toCityId" value="1" />
+            <column name="transportType" value="SPECIAL" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="22" author="octa">
+        <!-- password is 'password' -->
+        <insert tableName="Roles">
+            <column name="roleName" value="employee" />
+        </insert>
+        <insert tableName="Roles">
+            <column name="roleName" value="driver" />
+        </insert>
+        <insert tableName="Roles">
+            <column name="roleName" value="sender" />
+        </insert>
+        <insert tableName="Roles">
+            <column name="roleName" value="receiver" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="23" author="octa">
+        <!-- password is 'password' -->
+        <insert tableName="Person">
+            <column name="personName" value="Andrei Slavescu" />
+            <column name="cityId" value="1" />
+            <column name="personPhone" value="0711111111" />
+            <column name="personRole" value="2" />
+        </insert>
+        <insert tableName="Person">
+            <column name="personName" value="Marius Cristescu" />
+            <column name="cityId" value="3" />
+            <column name="personPhone" value="0722222222" />
+            <column name="personRole" value="2" />
+        </insert>
+        <insert tableName="Person">
+            <column name="personName" value="Costache Vasiliu" />
+            <column name="cityId" value="7" />
+            <column name="personPhone" value="0733333333" />
+            <column name="personRole" value="2" />
+        </insert>
+        <insert tableName="Person">
+            <column name="personName" value="Mihai Burcea" />
+            <column name="cityId" value="8" />
+            <column name="personPhone" value="0744444444" />
+            <column name="personRole" value="2" />
+        </insert>
+        <insert tableName="Person">
+            <column name="personName" value="Oana Cristea" />
+            <column name="cityId" value="1" />
+            <column name="personPhone" value="0755555555" />
+            <column name="personRole" value="1" />
+        </insert>
+        <insert tableName="Person">
+            <column name="personName" value="Marcel Miron" />
+            <column name="cityId" value="3" />
+            <column name="personPhone" value="0766666666" />
+            <column name="personRole" value="1" />
+        </insert>
+        <insert tableName="Person">
+            <column name="personName" value="Bursuc Gabriela" />
+            <column name="cityId" value="7" />
+            <column name="personPhone" value="0777777777" />
+            <column name="personRole" value="1" />
+        </insert>
+        <insert tableName="Person">
+            <column name="personName" value="Maria Cornelia" />
+            <column name="cityId" value="8" />
+            <column name="personPhone" value="0788888888" />
+            <column name="personRole" value="1" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

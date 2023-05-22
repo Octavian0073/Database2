@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="19" author="octa">
+        <createTable tableName="City">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="cityName" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="hasOffice" type="boolean">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="20" author="octa">
+    <createTable tableName="Route">
+        <column name="id" type="bigint(20)" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false" />
+        </column>
+        <column name="fromCityId" type="bigint(20)">
+            <constraints references="city(id)" foreignKeyName="FK_Route_CityFromId" deleteCascade="false" nullable="false" />
+        </column>
+        <column name="toCityId" type="bigint(20)">
+            <constraints references="city(id)" foreignKeyName="FK_Route_CityToId" deleteCascade="false" nullable="false" />
+        </column>
+        <column name="transportType" type="varchar(100)" defaultValue="">
+            <constraints nullable="false" />
+        </column>
+    </createTable>
+    </changeSet>
+
+    <changeSet id="22" author="octa">
+    <createTable tableName="Roles">
+        <column name="id" type="bigint(20)" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false" />
+        </column>
+        <column name="roleName" type="varchar(100)"/>
+    </createTable>
+    </changeSet>
+
+    <changeSet id="23" author="octa">
+    <createTable tableName="Person">
+        <column name="id" type="bigint(20)" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false" />
+        </column>
+        <column name="personName" type="varchar(100)"/>
+        <column name="cityId"  type="bigint(20)">
+            <constraints references="city(id)" foreignKeyName="FK_Person_CityId" deleteCascade="false" nullable="false" />
+        </column>
+        <column name="personPhone" type="varchar(100)"/>
+        <column name="personRole" type="bigint(20)">
+            <constraints references="roles(id)" foreignKeyName="FK_Person_RoleId" deleteCascade="false" nullable="false" />
+        </column>
+    </createTable>
+    </changeSet>
+
+    <changeSet id="24" author="octa">
+    <createTable tableName="Shipment">
+        <column name="id" type="bigint(20)" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false" />
+        </column>
+        <column name="packageType" type="enum('standard','special')"/>
+        <column name="packageWeight" type="bigint(20)"/>
+        <column name="senderId" type="bigint(20)">
+            <constraints references="person(id)" foreignKeyName="FK_Shipment_PersonSenderId" deleteCascade="false" nullable="false" />
+        </column>
+        <column name="receiverId" type="bigint(20)">
+            <constraints references="person(id)" foreignKeyName="FK_Shipment_PersonReceiverId" deleteCascade="false" nullable="false" />
+        </column>
+        <column name="driverId" type="bigint(20)">
+            <constraints references="person(id)" foreignKeyName="FK_Shipment_PersonDriverId" deleteCascade="false" nullable="false" />
+        </column>
+        <column name="routeId" type="bigint(20)">
+            <constraints references="route(id)" foreignKeyName="FK_Shipment_RouteId" deleteCascade="false" nullable="false" />
+        </column>
+        <column name="packageStatus" type="enum('in tranzit direct','in asteptare destinatar','in tranzit retur','in asteptare expeditor','in posesia firmei de curierat')"/>
+        <column name="returnStarted" type="boolean"/>
+        <column name="packageReturned" type="boolean"/>
+        <column name="currentCity" type="bigint(20)"/>
+        <column name="price" type="bigint(20)"/>
+    </createTable>
+    </changeSet>
+</databaseChangeLog>
